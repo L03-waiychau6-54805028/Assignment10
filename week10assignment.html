@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.6/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.16/addons/p5.sound.js"></script>
+    <script>
+        var sound, amplitude, cnv;
+
+
+
+        function preload() {
+            sound = loadSound('rain.mp3');
+            img = loadImage('pool.jpg');
+        }
+
+        function setup() {
+            cnv = createCanvas(500, 300);
+            image(img, 0, 0, 500, 300);
+            amplitude = new p5.Amplitude();
+
+
+            cnv.mouseClicked(function() {
+                if (sound.isPlaying()) {
+                    sound.stop();
+
+                } else {
+                    sound.play();
+
+
+                }
+            });
+        }
+
+        function draw() {
+
+            image(img, 0, 0, 500, 300);
+            noStroke();
+            fill(255, 100);
+            var level = amplitude.getLevel();
+            var size = map(level, 0, 1, 0, 200);
+            rect(random(500), 0, size * 4, 300);
+            ellipse(random(500), random(300), size * 5, size * 5);
+            if (size > 1) {
+                textAlign(CENTER);
+                fill(255);
+                textSize(50);
+                text("humidity:" + frameCount, 250, 150);
+
+            }
+        }
+    </script>
+</head>
+
+</html>
